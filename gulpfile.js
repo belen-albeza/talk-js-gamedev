@@ -104,7 +104,14 @@ gulp.task('deploy', ['build'], function(done) {
   ghpages.publish(path.join(__dirname, 'dist'), { logger: gutil.log }, done);
 });
 
-gulp.task('build', ['js', 'html', 'css', 'images']);
+gulp.task('build:examples', function () {
+  return gulp.src('src/examples/**/*.{html,js,css,wav,ogg,png}')
+    .pipe(gulp.dest('dist/examples/'));
+});
+
+gulp.task('build:slides', ['js', 'html', 'css', 'images']);
+
+gulp.task('build', ['build:examples', 'build:slides']);
 
 gulp.task('serve', ['open', 'watch']);
 
