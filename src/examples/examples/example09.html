@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 09 - Collisions</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>09 - Collisions</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+<script>
+
+var SHIP_SPEED = 200; // pixels per second
+var ASTEROID_COUNT = 6;
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.image('background', '../assets/images/background.png');
+        this.game.load.image('ship', '../assets/images/ship.png');
+        this.game.load.image('asteroid', '../assets/images/asteroid_big.png');
+    },
+    // setup game
+    create: function () {
+        // background
+        this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+
+        // asteroids
+        this.asteroids = this.game.add.group();
+        for (var i = 0; i < ASTEROID_COUNT; i++) {
+            var asteroid = this.asteroids.create(
+                this.game.rnd.between(0, this.game.width),
+                this.game.rnd.between(0, this.game.height),
+                'asteroid');
+            asteroid.anchor.setTo(0.5, 0.5);
+            this.game.physics.enable(asteroid, Phaser.Physics.ARCADE);
+        }
+
+        // ship
+        this.ship = this.game.add.sprite(320, 240, 'ship');
+        this.ship.anchor.setTo(0.5, 0.5);
+        this.game.physics.enable(this.ship, Phaser.Physics.ARCADE);
+
+        // keyboard
+        this.keys = this.game.input.keyboard.createCursorKeys();
+    },
+    // game loop: update
+    update: function () {
+        // handle input
+        var dirX = 0, dirY = 0;
+        if (this.keys.left.isDown) { dirX = -1; }
+        if (this.keys.right.isDown) { dirX = 1; }
+        if (this.keys.up.isDown) { dirY = -1; }
+        if (this.keys.down.isDown) { dirY = 1; }
+
+        // move ship
+        this.ship.body.velocity.setTo(SHIP_SPEED * dirX, SHIP_SPEED * dirY);
+
+        // check for collisions
+        this.ship.tint = 0xffffff; // reset tint value (white === no tinting)
+        this.asteroids.setAll('tint', 0xffffff);
+        this.game.physics.arcade.overlap(this.ship, this.asteroids, function (ship, asteroid) {
+            ship.tint = 0xff0000; // red tint
+            asteroid.tint = 0xff0000; // red tint
+        });
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>

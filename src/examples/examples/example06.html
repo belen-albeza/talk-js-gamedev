@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 06 - Create and destroy sprites</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>06 - Create and destroy sprites</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+<script>
+
+var SHIP_SPEED = 100; // pixels per second
+var ASTEROID_SPEED = 80; // pixels per second
+var ASTEROID_ROTATION_SPEED = 200; // radians? per second
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.image('background', '../assets/images/background.png');
+        this.game.load.image('ship', '../assets/images/ship.png');
+        this.game.load.image('laser', '../assets/images/laser.png');
+    },
+    // setup game
+    create: function () {
+        // background
+        this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+
+        // ship
+        this.ship = this.game.add.sprite(320, 440, 'ship');
+        this.ship.anchor.setTo(0.5, 0.5);
+
+        // bullet
+        this.spawnBullet();
+    },
+    // game loop: update
+    update: function () {
+        if (this.bullet.y < -20) {
+            this.bullet.destroy();
+            this.spawnBullet();
+        }
+    },
+
+    spawnBullet: function () {
+        this.bullet = this.game.add.sprite(this.ship.x, this.ship.y - 25, 'laser');
+        this.bullet.anchor.setTo(0.5, 0.5);
+
+        this.game.physics.enable(this.bullet, Phaser.Physics.ARCADE);
+        this.bullet.body.velocity.y -= 300;
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>
