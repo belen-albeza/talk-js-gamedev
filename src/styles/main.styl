@@ -1,0 +1,74 @@
+// New to Stylus? Check out http://learnboost.github.io/stylus
+// Use modern CSS thanks to Autoprefixer: https://github.com/ai/autoprefixer
+
+// Import CSS from "node_modules" and "bower_components"
+// thanks to Stylus' "import css" and "paths" options
+
+@import 'prism/themes/prism-okaidia.css'
+// Check out "bower_components/prism/themes/" for available themes
+
+a
+  color: #F62459
+
+h1, h2
+  color: #fff
+
+pre, code
+  font-family: "Source Code Pro", Consolas, Courier, monospace !important
+
+h2 + p, h1 + p, h3 + p, h2 + ul, h2 + img
+  margin-top: 1em
+
+h2
+  line-height: 1.3em
+
+h3
+  font-size: 1.6em
+
+p, li
+  -webkit-font-smoothing: antialiased
+p
+  font-size: 1.5em
+
+li
+  font-size: 1.3em
+
+li li
+  font-size: 0.8em
+
+iframe
+  border: 0
+
+li.block::before
+  content: ''
+
+li.block
+  text-align: center
+
+// bullet lists
+
+.bespoke-bullet-active
+  opacity: 1
+
+.bespoke-bullet-inactive
+  opacity: 0
+
+.all .bespoke-bullet-inactive
+  opacity: 1
+
+.bespoke-bullet
+  transition: opacity 0.3s ease
+
+// single slides
+
+.phaser-logo
+  background: url(../images/phaser_logo.png) center center
+  background-size: cover
+
+.phaser-logo.bespoke-backdrop-active
+  opacity: 0.2
+
+#demo-game
+  iframe
+    margin-top: 20px
+  height: 600px
