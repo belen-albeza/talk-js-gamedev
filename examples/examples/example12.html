@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 12 - Particles</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>12 - Particles</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+    <p><strong>Move the mouse</strong> around…</p>
+
+<script>
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.image('particle', '../assets/images/particle.png');
+    },
+    // setup game
+    create: function () {
+        // emiter with up to 500 particles at once!
+        this.fire = this.game.add.emitter(
+            this.game.input.x,
+            this.game.input.y,
+            500);
+        this.fire.makeParticles('particle');
+
+        // fire.anchor.setTo(0.5, 0.5);
+        this.fire.gravity = -200;
+        this.fire.setXSpeed(10);
+        this.fire.setYSpeed(-100, -10);
+        this.fire.setAlpha(0.5, 1);
+        this.fire.minParticleScale = 1;
+        this.fire.maxParticleScale = 10;
+
+        this.fire.blendMode = 1; // additive blending
+        this.fire.setAll('tint', 0xffaa33);
+
+        this.fire.start(false, 700, 20);
+    },
+
+    update: function () {
+        this.fire.x = this.game.input.x;
+        this.fire.y = this.game.input.y;
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>
