@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 00</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>00 - Game loop and initialisation</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+<script>
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {},
+    // setup game
+    create: function () {},
+    // game loop: update
+    update: function () {},
+    // game loop: render
+    render: function () {}
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>

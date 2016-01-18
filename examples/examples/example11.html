@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 11 - Text</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>11 - Text</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+<script>
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.image('background', '../assets/images/background.png');
+    },
+
+    create: function () {
+        // Background image
+        this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+
+        // Fancy text with attributes
+        var title = this.game.add.text(320, 150, 'Waka waka', {
+            font: '50px monospace',
+            fill: '#fff'
+        });
+        title.anchor.setTo(0.5, 0.5);
+        title.setShadow(-4, 4, '#000', 2);
+
+        // Text that will contain a dynamic value
+        var counter = this.game.add.text(320, 250, '0', {
+            font: '40px sans-serif',
+            fill: '#0f0'
+        });
+        counter.anchor.setTo(0.5, 0.5);
+
+        // Setup timer and update text in each tick
+        var timer = this.game.time.create();
+        timer.loop(1000, function () {
+            var n = parseInt(counter.text, 10);
+            counter.setText(n + 1);
+        });
+        timer.start();
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>

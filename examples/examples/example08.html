@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 08 - Keyboard input</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>08 - Keyboard input</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+    <p>Left and right arrows to move. Space bar to shoot.</p>
+
+<script>
+
+var SHIP_SPEED = 200; // pixels per second
+var BULLET_SPEED = 400; // pixels per second
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.image('background', '../assets/images/background.png');
+        this.game.load.image('ship', '../assets/images/ship.png');
+        this.game.load.image('laser', '../assets/images/laser.png');
+    },
+    // setup game
+    create: function () {
+        // background
+        this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+
+        // ship
+        this.ship = this.game.add.sprite(320, 440, 'ship');
+        this.ship.anchor.setTo(0.5, 0.5);
+        this.game.physics.enable(this.ship, Phaser.Physics.ARCADE);
+
+        this.bullet = null;
+
+        // create keys for left and right arrow keys
+        this.keys = {
+            left: this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+            right: this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
+            spacebar: this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+        };
+
+        this.keys.spacebar.onDown.add(function () {
+            if (!this.bullet) {
+                this.spawnBullet();
+            }
+        }, this);
+    },
+    // game loop: update
+    update: function () {
+        // update ship
+        if (this.keys.left.isDown) {
+            this.moveShip(-1);
+        }
+        else if (this.keys.right.isDown) {
+            this.moveShip(1);
+        }
+        else {
+            this.moveShip(0);
+        }
+
+        // update bullet
+        if (this.bullet && this.bullet.y < -20) {
+            this.bullet.destroy();
+            this.bullet = null;
+        }
+    },
+
+    moveShip: function (dir) {
+        this.ship.body.velocity.x = dir * SHIP_SPEED;
+    },
+
+    spawnBullet: function () {
+        this.bullet = this.game.add.sprite(this.ship.x, this.ship.y - 25, 'laser');
+        this.bullet.anchor.setTo(0.5, 0.5);
+
+        this.game.physics.enable(this.bullet, Phaser.Physics.ARCADE);
+        this.bullet.body.velocity.y -= BULLET_SPEED;
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>
