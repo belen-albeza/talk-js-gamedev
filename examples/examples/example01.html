@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 01 - Images</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>01 - Load and draw images</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+<script>
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.image('background', '../assets/images/background.png');
+        this.game.load.image('ship', '../assets/images/ship.png');
+    },
+    // setup game
+    create: function () {
+        // Repeated image so it fills the whole area
+        // The effect is like using repeat on CSS backgrounds
+        this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+
+        // Single image
+        this.game.add.image(300, 200, 'ship');
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>

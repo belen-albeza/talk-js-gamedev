@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Game development with JS and Phaser</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css">
+  </head>
+  <body>
+    <article>
+      <section>
+        <h1>Game development with JS and Phaser</h1>
+        <h3><a href="https://www.twitter.com/ladybenko">@ladybenko</a></h3>
+      </section>
+      <section>
+        <h2 class="bullet">Why make games in JS?</h2>
+        <h3 class="bullet">Because we can :)</h3>
+      </section>
+      <section>
+        <h2>Phaser</h2>
+        <ul>
+          <li class="block"><img src="images/phaser_logo.png" width="300"></li>
+          <li>Highly popular game framework</li>
+          <li>Excellent documentation and lots of code examples</li>
+          <li>High-level features: scenes, tile maps, physics, etc.</li>
+          <li><a href="http://www.phaser.io">phaser.io</a></li>
+        </ul>
+      </section>
+      <section id="demo">
+        <h2>A game in a weekend</h2><a href="http://lab.belenalbeza.com/games/ldjam-32" target="_blank"><img src="images/metal_screenshot.png" class="screenshot"></a>
+      </section>
+      <section>
+        <h2>Slides &amp; examples</h2>
+        <h3><a href="https://github.com/belen-albeza/betabeers-jan-2016">belen-albeza.github.io/betabeers-jan-2016</a></h3>
+      </section>
+      <section>
+        <h1>Press start button</h1>
+      </section>
+      <section>
+        <h2>What do we need to make a game?</h2><img src="images/game_components.svg" class="figure">
+      </section>
+      <section>
+        <h2>The game loop</h2><img src="images/game_loop.svg" class="figure">
+      </section>
+      <section>
+        <h2>Init Phaser</h2>
+        <ul>
+          <li>Phaser can create a WebGL or 2D <code>canvas</code></li>
+          <li>We need to pass callbacks for the game loop</li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-javascript">var loop = {
+  preload: function () {},
+  create: function () {},
+  update: function () {},
+  render: function () {}
+};
+
+window.onload = function ()  {
+  new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', loop);
+};
+</code></pre>
+      </section>
+      <section>
+        <h1>Images and sprites</h1>
+      </section>
+      <section>
+        <h2>Draw images</h2>
+        <ul>
+          <li>Load the asset and assign a <em>key</em> to it</li>
+          <li>Create an image object and add it to the game</li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-javascript">function preload () {
+  this.game.load.image('background',
+    '../assets/images/trees.png');
+}
+
+function create () {
+  this.game.add.image(0, 0, 'background');
+}
+</code></pre>
+      </section>
+      <section>
+        <h2>Sprites</h2><img src="images/sonic.png">
+      </section>
+      <section>
+        <h2>Sprites</h2>
+        <ul>
+          <li>Image-based <em>game entities</em></li>
+          <li>Usually animated</li>
+          <li>Drawing properties: coordinates, transparency, rotation, etc.</li>
+          <li>Created or destroyed "on the fly"</li>
+          <li>Can interact with each other</li>
+        </ul>
+      </section>
+      <section>
+        <p>Use <code>Phaser.Sprite</code></p>
+        <pre><code class="language-javascript">var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');</code></pre>
+        <p>or use <code>game</code>'s factory</p>
+        <pre><code class="language-javascript">var ship = this.game.add.sprite(10, 20, 'hero');
+ship.anchor.setTo(0.5, 0.5);
+ship.angle = 45;
+ship.alpha = 0.5;
+</code></pre>
+      </section>
+      <section>
+        <h2>Animations</h2><img src="images/spritesheet.png" class="figure">
+        <ul>
+          <li>The original<sup>TM</sup> CSS sprites!</li>
+          <li>Sprites pick the correct frame depending on time</li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-javascript">function preload() {
+  this.game.load.spritesheet('hero',
+    'character.png', 122, 256);
+};
+
+function create() {
+  var hero = this.game.add.sprite(320, 240, 'hero');
+  hero.animations.add('walk');
+  hero.animations.play('walk', 5, true);
+}
+</code></pre>
+      </section>
+      <section>
+        <h2>Move sprites (old-school)</h2>
+        <ul>
+          <li>We need to update the position in each frame</li>
+          <li>Newton's equations FTW</li>
+          <li>We need the <strong>delta time</strong></li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-javascript">var SHIP_SPEED = 100; // pixels / second
+
+function update() {
+  // time in seconds
+  var delta = this.game.time.elapsed / 1000.0;
+  
+  // position = speed * time
+  ship.x += SHIP_SPEED * delta;
+}
+</code></pre>
+      </section>
+      <section>
+        <h2>The game tree</h2><img src="images/game_tree.svg" class="figure">
+      </section>
+      <section>
+        <h2>The game tree</h2>
+        <ul>
+          <li>Tree structure to store game entities</li>
+          <li>Use <em>groups</em> to hold related entities together</li>
+          <li>Entities can contain children</li>
+          <li>Automatically calls <code>update</code> and <code>render</code></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Create &amp; destroy sprites</h2>
+        <p class="bullet">Add and remove them from the tree</p>
+        <h3 class="bullet"><strong>PROBLEM</strong>: it's expensive!</h3>
+      </section>
+      <section>
+        <h2>Recycle sprites</h2><img src="images/recycle.svg" class="figure">
+        <ul>
+          <li>Don't destroy sprites… mark them as "zombies"</li>
+          <li>Re-use "zombie" sprites instead of <code>new</code></li>
+          <li>Easy to implement with <code>Phaser.Group</code></li>
+        </ul>
+      </section>
+      <section>
+        <h1>Input, audio &amp; text</h1>
+      </section>
+      <section>
+        <h2>Input</h2>
+        <ul>
+          <li>HTML5 support for keyboard, mouse, touch and <em>gamepad</em> events.</li>
+          <li>We might need to capture keys to avoid bubbling</li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-javascript">function create() {
+  // capture spacebar key
+  spacebar = game.input.keyboard.addKey(
+    Phaser.Keyboard.SPACEBAR);
+  game.input.keyboard.addKeyCapture(
+    [Phaser.Keyboard.SPACEBAR]);
+    
+  // register event callback
+  spacebar.onDown.add(shoot);
+}
+</code></pre>
+      </section>
+      <section>
+        <pre><code class="language-javascript">// check key flag
+function update() {
+  if (spacebar.isDown) {
+    shoot();
+  }
+}
+</code></pre>
+      </section>
+      <section>
+        <h2>Audio</h2>
+        <ul>
+          <li>We can load and play sound effects and song tracks</li>
+          <li>Formats? Same as <code>&lt;audio&gt;</code></li>
+          <li>Similar to handling images</li>
+          <li>Can play track slices, control panning, etc.</li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-javascript">// within preload
+game.load.audio('shoot', 'laser.wav');
+
+// within create
+sfxShoot = game.add.audio('shoot');
+
+// anywhere
+sfxShoot.play();
+</code></pre>
+      </section>
+      <section>
+        <h2>Text</h2>
+        <ul>
+          <li>They are a game entity</li>
+          <li>Same API as <code>Pixi</code></li>
+          <li>Use CSS fonts or bitmap fonts</li>
+        </ul>
+      </section>
+      <section>
+        <pre><code class="language-javascript">title = game.add.text(0, 0, 'Score', {
+  font: '20px monospace',
+  fill: '#f00'
+});
+
+title.setText('Score: ' + score);
+</code></pre>
+      </section>
+      <section>
+        <h1>Physics and collisions</h1>
+      </section>
+      <section>
+        <h2>Collisions with b-boxes</h2><img src="images/bboxes.svg" class="figure">
+        <ul>
+          <li>Very fast, not accurate</li>
+          <li>Phaser has built-in functions to check for rect and circle overlaps</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Physics engines</h2>
+        <ul>
+          <li>Mapping between game entities and a physical world</li>
+          <li>Mass, speed, acceleration, bounding, etc. implemented by smart people. And free!</li>
+          <li>Phaser's buil-in engines: <code>Arcade</code> and <code>P2</code></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Physics engines</h2><img src="images/physics.svg" class="figure">
+        <ul>
+          <li>Easy, intuitive API…</li>
+          <li>…but hard to fine-tune!</li>
+        </ul>
+      </section>
+      <section>
+        <h1>The rest</h1>
+      </section>
+      <section>
+        <h2 class="bullet">The golden rule about game dev</h2>
+        <h3 class="bullet">If you can fake it, then fake it.</h3>
+      </section>
+      <section>
+        <h2>You should also look into</h2>
+        <ul>
+          <li>Game states</li>
+          <li>Tiled maps</li>
+          <li>Finite state machines</li>
+          <li>Scripting</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Examples for this talk</h2>
+        <p><a href="http://belen-albeza.github.io/betabeers-jan-2016/examples/">Snippets and a game!</a></p>
+      </section>
+      <section>
+        <h2>Links</h2>
+        <ul class="all">
+          <li><a href="http://www.html5gamedevs.com/forum/14-phaser/">Phaser's forum</a></li>
+          <li><a href="http://www.ludumdare.com">Ludum Dare</a> (48h game jam)</li>
+          <li><a href="http://gamedevelopment.tutsplus.com/articles/1gam-how-to-succeed-at-making-one-game-a-month--gamedev-3695">One game a month</a> (article)</li>
+          <li><a href="http://www.gamasutra.com/">Gamasutra</a></li>
+        </ul>
+      </section>
+      <section>
+        <h1>Thanks!</h1>
+        <h3>Questions?</h3>
+      </section>
+    </article>
+    <script src="build/build.js"></script>
+  </body>
+</html>

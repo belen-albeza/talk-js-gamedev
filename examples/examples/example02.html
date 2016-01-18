@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 02 - Sprites</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>02 - Phaser sprites</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+<script>
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.image('background', '../assets/images/background.png');
+        this.game.load.image('ship', '../assets/images/ship.png');
+    },
+    // setup game
+    create: function () {
+        // background
+        this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+
+        // ship
+        var ship = this.game.add.sprite(300, 200, 'ship');
+        ship.anchor.setTo(0.5, 0.5); // anchor point for positioning, rotations, etc.
+        ship.angle = 45; // rotation
+        ship.alpha = 0.5; // opacity
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>
