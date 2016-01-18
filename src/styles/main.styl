@@ -4,17 +4,22 @@
 // Import CSS from "node_modules" and "bower_components"
 // thanks to Stylus' "import css" and "paths" options
 
-@import 'prism/themes/prism-okaidia.css'
+@import 'prism/themes/prism.css'
 // Check out "bower_components/prism/themes/" for available themes
 
 a
   color: #F62459
 
 h1, h2
-  color: #fff
+  color: #000
 
 pre, code
   font-family: "Source Code Pro", Consolas, Courier, monospace !important
+  font-weight: bold !important
+
+li code
+  background: #eee
+  font-weight: normal !important
 
 h2 + p, h1 + p, h3 + p, h2 + ul, h2 + img
   margin-top: 1em
@@ -68,7 +73,18 @@ li.block
 .phaser-logo.bespoke-backdrop-active
   opacity: 0.2
 
-#demo-game
-  iframe
-    margin-top: 20px
-  height: 600px
+.bespoke-parent
+  background: #fff
+  color: #000
+
+.token.comment
+  font-style: italic
+
+.screenshot
+  width: 450px
+  margin-top: 20px
+
+#demo
+  a
+    border: none
+    display: inline-block

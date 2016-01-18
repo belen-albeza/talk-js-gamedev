@@ -1,9 +1,9 @@
 # Game development with JS and Phaser
 
-Talk for MediterráneaJS 2015 in Barcelona.
+Talk for Betabeers 2016 in Barcelona.
 
-- View the [slides online](http://belen-albeza.github.io/mediterranea-js-2015)
-- View the [snippets and demo game](http://belen-albeza.github.io/mediterranea-js-2015/examples/)
+- View the [slides online](http://belen-albeza.github.io/betabeers-jan-2016)
+- View the [snippets and demo game](http://belen-albeza.github.io/betabeers-jan-2016/examples/)
 
 Images for the examples are made by [Kenney](http://kenney.nl/) and have been released under a [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/).
 
