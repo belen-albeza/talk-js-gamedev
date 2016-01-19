@@ -98,7 +98,8 @@ function create () {
       </section>
       <section>
         <p>Use <code>Phaser.Sprite</code></p>
-        <pre><code class="language-javascript">var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');</code></pre>
+        <pre><code class="language-javascript">var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');
+this.game.add.existing(ship);</code></pre>
         <p>or use <code>game</code>'s factory</p>
         <pre><code class="language-javascript">var ship = this.game.add.sprite(10, 20, 'hero');
 ship.anchor.setTo(0.5, 0.5);
@@ -254,8 +255,8 @@ title.setText('Score: ' + score);
         <h2>Physics engines</h2>
         <ul>
           <li>Mapping between game entities and a physical world</li>
-          <li>Mass, speed, acceleration, bounding, etc. implemented by smart people. And free!</li>
-          <li>Phaser's buil-in engines: <code>Arcade</code> and <code>P2</code></li>
+          <li>Mass, speed, acceleration, bouncing, etc. implemented by smart people. And free!</li>
+          <li>Phaser's built-in engines: <code>Arcade</code> and <code>P2</code></li>
         </ul>
       </section>
       <section>
