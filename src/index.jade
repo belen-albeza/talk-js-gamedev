@@ -108,6 +108,7 @@ html
         pre
           code.language-javascript.
             var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');
+            this.game.add.existing(ship);
         p or use <code>game</code>'s factory
         pre
           code.language-javascript.
@@ -266,8 +267,8 @@ html
         h2 Physics engines
         ul
           li Mapping between game entities and a physical world
-          li Mass, speed, acceleration, bounding, etc. implemented by smart people. And free!
-          li Phaser's buil-in engines: <code>Arcade</code> and <code>P2</code>
+          li Mass, speed, acceleration, bouncing, etc. implemented by smart people. And free!
+          li Phaser's built-in engines: <code>Arcade</code> and <code>P2</code>
 
       section
         h2 Physics engines
