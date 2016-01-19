@@ -1,11 +1,9 @@
 body {
-    background: #000;
+    background: #fff;
+    color: #000;
     font-family: Futura, Helvetica, Arial, sans-serif;
-    color: #fff;
-    /*border-top: 0.3vw solid #ddd;*/
     margin: 0;
     padding: 0 1vw;
-    /*-webkit-font-smoothing: antialiased;*/
 }
 
 a {
