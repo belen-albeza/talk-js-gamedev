@@ -31,3 +31,8 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+node_modules
+bower_components
+dist
+bespoke-theme-*
+.DS_Store

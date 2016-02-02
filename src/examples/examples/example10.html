@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 10 - Audio</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>10 - Audio</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+    <p><strong>Left click</strong> on the black canvas to play a sound effect</p>
+
+<script>
+
+var SHIP_SPEED = 200; // pixels per second
+var BULLET_SPEED = 400; // pixels per second
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        this.game.load.audio('song', '../assets/audio/soundtrack.ogg');
+        this.game.load.audio('shoot', '../assets/audio/shoot.wav');
+    },
+
+    // setup game
+    create: function () {
+        var song = this.game.add.audio('song');
+        var sfx = this.game.add.audio('shoot');
+
+        // play background music, looped
+        song.loopFull(1);
+
+        this.game.input.onUp.add(function () {
+            sfx.play();
+        });
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>

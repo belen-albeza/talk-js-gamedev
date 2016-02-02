@@ -1,0 +1,82 @@
+body {
+    background: #fff;
+    color: #000;
+    font-family: Futura, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0 1vw;
+}
+
+a {
+    color: #f62459;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+li {
+    line-height: 1.5em;
+}
+
+header {
+  margin-top: 1em;
+}
+
+footer {
+  border-top: 1px solid #ddd;
+  margin-top: 1em;
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+footer em {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+header, p {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+canvas {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #fff;
+}
+
+.wrapper {
+    width: 650px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-weight: 400;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 1em 0;
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2.75em;
+    text-align: center;
+}
+
+h2, em {
+  font-family: didot, "times new roman", serif;
+  font-style: italic;
+}
+
+li {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+li a {
+    font-weight: 100;
+}
