@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example 04 - Animated sprites</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <script src="../phaser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>04 - Animated sprites</h1>
+        <p><a href="../index.html">‹ Back</a></p>
+    </header>
+
+    <div id="wrapper"></div>
+
+<script>
+
+var AwesomeGame = {
+    // load game assets here
+    preload: function () {
+        // each frame in the spritesheet has a size of 122x256 pixels
+        this.game.load.spritesheet('hero', '../assets/images/character.png', 122, 256);
+    },
+    // setup game
+    create: function () {
+        var hero = this.game.add.sprite(320, 240, 'hero');
+        hero.anchor.setTo(0.5, 0.5);
+
+        hero.animations.add('walk'); // no extra parameters take all the frames in the sheet
+        hero.animations.play('walk', 5, true); // 5hz freq, looped
+    }
+}
+
+window.onload = function ()  {
+    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', AwesomeGame);
+};
+
+</script>
+</body>
+</html>

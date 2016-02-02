@@ -10,10 +10,10 @@
     <article>
       <section>
         <h1>Game development with JS and Phaser</h1>
-        <h3><a href="https://www.twitter.com/ladybenko">@ladybenko</a></h3>
+        <h3 class="mono"><a href="https://www.twitter.com/ladybenko">@ladybenko</a><br>belen@mozilla.com</h3>
       </section>
       <section>
-        <h2 class="bullet">Why making games in JS?</h2>
+        <h2 class="bullet">Why make games in JS?</h2>
         <h3 class="bullet">Because we can :)</h3>
       </section>
       <section>
@@ -26,13 +26,12 @@
           <li><a href="http://www.phaser.io">phaser.io</a></li>
         </ul>
       </section>
-      <section id="demo-game">
-        <h2>A game in a weekend</h2>
-        <iframe src="http://lab.belenalbeza.com/games/ldjam-32/" width="900" height="800"></iframe>
+      <section id="demo">
+        <h2>A game in a weekend</h2><a href="http://lab.belenalbeza.com/games/ldjam-32" target="_blank"><img src="images/metal_screenshot.png" class="screenshot"></a>
       </section>
       <section>
         <h2>Slides &amp; examples</h2>
-        <h3><a href="http://belen-albeza.github.io/mediterranea-js-2015">belen-albeza.github.io/mediterranea-js-2015</a></h3>
+        <h3><a href="https://github.com/belen-albeza/betabeers-jan-2016">belen-albeza.github.io/betabeers-jan-2016</a></h3>
       </section>
       <section>
         <h1>Press start button</h1>
@@ -99,7 +98,8 @@ function create () {
       </section>
       <section>
         <p>Use <code>Phaser.Sprite</code></p>
-        <pre><code class="language-javascript">var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');</code></pre>
+        <pre><code class="language-javascript">var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');
+this.game.add.existing(ship);</code></pre>
         <p>or use <code>game</code>'s factory</p>
         <pre><code class="language-javascript">var ship = this.game.add.sprite(10, 20, 'hero');
 ship.anchor.setTo(0.5, 0.5);
@@ -141,7 +141,7 @@ function create() {
 function update() {
   // time in seconds
   var delta = this.game.time.elapsed / 1000.0;
-  
+
   // position = speed * time
   ship.x += SHIP_SPEED * delta;
 }
@@ -189,7 +189,7 @@ function update() {
     Phaser.Keyboard.SPACEBAR);
   game.input.keyboard.addKeyCapture(
     [Phaser.Keyboard.SPACEBAR]);
-    
+
   // register event callback
   spacebar.onDown.add(shoot);
 }
@@ -255,8 +255,8 @@ title.setText('Score: ' + score);
         <h2>Physics engines</h2>
         <ul>
           <li>Mapping between game entities and a physical world</li>
-          <li>Mass, speed, acceleration, bounding, etc. implemented by smart people. And free!</li>
-          <li>Phaser's buil-in engines: <code>Arcade</code> and <code>P2</code></li>
+          <li>Mass, speed, acceleration, bouncing, etc. implemented by smart people. And free!</li>
+          <li>Phaser's built-in engines: <code>Arcade</code> and <code>P2</code></li>
         </ul>
       </section>
       <section>
@@ -284,11 +284,12 @@ title.setText('Score: ' + score);
       </section>
       <section>
         <h2>Examples for this talk</h2>
-        <p><a href="http://belen-albeza.github.io/mediterranea-js-2015/examples/">Snippets and a game!</a></p>
+        <p><a href="http://belen-albeza.github.io/betabeers-jan-2016/examples/">Snippets and a game!</a></p>
       </section>
       <section>
         <h2>Links</h2>
         <ul class="all">
+          <li><a href="http://developer.mozilla.org/Games">Games at MDN</a></li>
           <li><a href="http://www.html5gamedevs.com/forum/14-phaser/">Phaser's forum</a></li>
           <li><a href="http://www.ludumdare.com">Ludum Dare</a> (48h game jam)</li>
           <li><a href="http://gamedevelopment.tutsplus.com/articles/1gam-how-to-succeed-at-making-one-game-a-month--gamedev-3695">One game a month</a> (article)</li>
