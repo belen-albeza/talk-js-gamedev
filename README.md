@@ -2,8 +2,8 @@
 
 Talk on HTML 5 game development using [Phaser](http://phaser.io).
 
-- View the [slides online](http://belen-albeza.github.io/talk-js-gamedev)
-- View the [snippets and demo game](http://belen-albeza.github.io/talk-js-gamedev/examples/)
+- View the [slides online](https://belen-albeza.github.io/talk-js-gamedev)
+- View the [snippets and demo game](https://belen-albeza.github.io/talk-js-gamedev/examples/)
 
 Images for the examples are made by [Kenney](http://kenney.nl/) and have been released under a [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/).
 
