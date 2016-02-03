@@ -3,7 +3,8 @@
 <head>
     <title>Example 07 - Sprites recycling</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <link rel="stylesheet" href="../../styles.css" type="text/css">
+    <link rel="stylesheet" href="../examples.css" type="text/css">
     <script src="../phaser.min.js"></script>
 </head>
 <body>
@@ -64,7 +65,7 @@ var AwesomeGame = {
             bullet.anchor.setTo(0.5, 0.5);
             this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
         }
-        
+
         bullet.body.velocity.y -= 300;
     }
 }

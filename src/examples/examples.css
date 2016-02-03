@@ -1,0 +1,23 @@
+body {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.wrapper {
+    width: 650px;
+    margin: 0 auto;
+}
+
+ul, ol {
+    text-align: left;
+}
+
+.main-footer {
+    border-top: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+canvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

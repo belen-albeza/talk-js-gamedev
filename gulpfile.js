@@ -80,7 +80,8 @@ gulp.task('dist', ['build'], function () {
         'src/fonts/**/*',
         'src/images/**/*',
         'src/*.html',
-        'src/*.css'
+        'src/*.css',
+        'src/examples/**/*'
     ], { base: path.join(__dirname, 'src')})
     .pipe(gulp.dest('dist'));
 
