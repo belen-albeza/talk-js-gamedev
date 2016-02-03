@@ -7,27 +7,54 @@ Talk on HTML 5 game development using [Phaser](http://phaser.io).
 
 Images for the examples are made by [Kenney](http://kenney.nl/) and have been released under a [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/).
 
-## View slides locally
-
-First, ensure you have the following installed:
-
-1. [Node.js](http://nodejs.org)
-2. [Bower](http://bower.io): `$ npm install -g bower`
-3. [Gulp](http://gulpjs.com): `$ npm install -g gulp`
-
-Then, install dependencies and run the preview server:
-
-```bash
-$ npm install && bower install
-$ gulp serve
-```
+Slide deck generated with [generator-simple-bespoke](https://github.com/belen-albeza/generator-simple-bespoke).
 
 ## Run the examples locally
 
-You need to launch a local HTTP server from the `src/examples` directory. One way is by running `http-server`:
+You need to **run a local server** that can serve the `src/examples` directory statically.
+
+With Python:
 
 ```
-$ npm install -g http-server
-$ cd src/examples
-$ http-server
+cd src/examples
+python -m SimpleHTTPServer
+```
+
+With Node's `http-server`:
+
+```
+npm install -g http-server
+http-server src/examples
+```
+
+## View the slideshow locally
+
+### Requirements
+
+- Gulp client `npm install -g gulp`
+
+### Usage
+
+Download or clone the repository, then install dependencies:
+
+```
+npm install
+```
+
+To build the project in a `dist` folder:
+
+```
+gulp dist
+```
+
+To start development mode, with automatic asset rebuilding and browser reloading:
+
+```
+gulp dev
+```
+
+To deploy to Github pages:
+
+```
+gulp deploy
 ```

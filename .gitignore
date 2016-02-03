@@ -31,8 +31,9 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
-node_modules
-bower_components
+.tmp
+.publish
 dist
-bespoke-theme-*
 .DS_Store
+.jshintrc
+

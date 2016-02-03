@@ -1,313 +1,301 @@
 doctype html
-html
-  head
+head
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
     title Game development with JS and Phaser
 
-    link(rel='stylesheet', type='text/css', href='build/build.css')
+    link(rel='stylesheet', type='text/css', href='prism.css')
+    link(rel='stylesheet', type='text/css', href='styles.css')
 
-  body
+body
+    article#deck
+        section
+            h1.title Game development with<br>JavaScript and Phaser
+            p: a(href="https://www.twitter.com/ladybenko") @ladybenko
+            p belen@mozilla.com
 
-    article
+        section
+            h1.bullet Why make games in JS?
+            h2.bullet Because we can :)
 
-      section
-        h1 Game development with JS and Phaser
-        h3.mono <a href="https://www.twitter.com/ladybenko">@ladybenko</a><br>belen@mozilla.com
+        section
+            h2 Phaser
+            p: img(src="images/phaser_logo.png", width="400")
+            ul
+                li Highly popular game framework
+                li Excellent documentation and lots of code examples
+                li High-level features: scenes, tile maps, physics, etc.
+                li <a href="http://www.phaser.io">phaser.io</a>
 
+        section#demo
+            h1 A game in a weekend
+            p: a(href="http://lab.belenalbeza.com/games/ldjam-32", target="_blank")
+                img.screenshot(src="images/metal_screenshot.png")
 
-      section
-        h2.bullet Why make games in JS?
-        h3.bullet Because we can :)
+        section
+            h1 Slides &amp; examples
+            p: a(href="https://github.com/belen-albeza/talk-js-gamedev") belen-albeza.github.io/talk-js-gamedev
 
-      section
-        h2 Phaser
-        ul
-          li.block <img src="images/phaser_logo.png" width="300">
-          li Highly popular game framework
-          li Excellent documentation and lots of code examples
-          li High-level features: scenes, tile maps, physics, etc.
-          li <a href="http://www.phaser.io">phaser.io</a>
+        section
+            h1 Press start button
 
-      section#demo
-        h2 A game in a weekend
-        a(href="http://lab.belenalbeza.com/games/ldjam-32", target="_blank")
-          img.screenshot(src="images/metal_screenshot.png")
+        section
+            h1 What do we need to make a game?
+            p: img(src="images/game_components.svg").figure
 
-      section
-        h2 Slides &amp; examples
-        h3 <a href="https://github.com/belen-albeza/talk-js-gamedev">belen-albeza.github.io/talk-js-gamedev</a>
+        section
+            h1 The game loop
+            p: img(src="images/game_loop.svg").figure
 
-      section
-        h1 Press start button
+        section
+            h2 Init Phaser
+            ul
+                li Phaser can create a WebGL or 2D <code>canvas</code>
+                li We need to pass callbacks for the game loop
 
-      section
-        h2 What do we need to make a game?
-        img(src="images/game_components.svg").figure
+        section
+            pre: code.language-javascript.
+                var loop = {
+                    preload: function () {},
+                    create: function () {},
+                    update: function () {},
+                    render: function () {}
+                };
 
-      section
-        h2 The game loop
-        img(src="images/game_loop.svg").figure
+                window.onload = function ()  {
+                    new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', loop);
+                };
 
-      section
-        h2 Init Phaser
-        ul
-          li Phaser can create a WebGL or 2D <code>canvas</code>
-          li We need to pass callbacks for the game loop
+        section
+            h1 Images and sprites
 
-      section
-        pre
-          code.language-javascript.
-            var loop = {
-              preload: function () {},
-              create: function () {},
-              update: function () {},
-              render: function () {}
-            };
+        section
+            h1 Draw images
+            ul
+                li Load the asset and assign a <em>key</em> to it
+                li Create an image object and add it to the game
 
-            window.onload = function ()  {
-              new Phaser.Game(640, 480, Phaser.WEBGL, 'wrapper', loop);
-            };
+        section
+            pre: code.language-javascript.
+                function preload () {
+                    this.game.load.image('background',
+                    '../assets/images/trees.png');
+                }
 
-      section
-        h1 Images and sprites
+                function create () {
+                    this.game.add.image(0, 0, 'background');
+                }
 
-      section
-        h2 Draw images
-        ul
-          li Load the asset and assign a <em>key</em> to it
-          li Create an image object and add it to the game
+        section
+            h1 Sprites
+            p: img(src="images/sonic.png")
 
-      section
-        pre
-          code.language-javascript.
-            function preload () {
-              this.game.load.image('background',
-                '../assets/images/trees.png');
-            }
+        section
+            h1 Sprites
+            ul
+                li Image-based <em>game entities</em>
+                li Usually animated
+                li Drawing properties: coordinates, transparency, rotation, etc.
+                li Created or destroyed "on the fly"
+                li Can interact with each other
 
-            function create () {
-              this.game.add.image(0, 0, 'background');
-            }
+        section
+            p Use <code>Phaser.Sprite</code>
+            pre: code.language-javascript.
+                var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');
+                this.game.add.existing(ship);
 
-      section
-        h2 Sprites
-        img(src="images/sonic.png")
+            p or use <code>game</code>'s factory
+            pre: code.language-javascript.
+                var ship = this.game.add.sprite(10, 20, 'hero');
+                ship.anchor.setTo(0.5, 0.5);
+                ship.angle = 45;
+                ship.alpha = 0.5;
 
-      section
-        h2 Sprites
-        ul
-          li Image-based <em>game entities</em>
-          li Usually animated
-          li Drawing properties: coordinates, transparency, rotation, etc.
-          li Created or destroyed "on the fly"
-          li Can interact with each other
+        section
+            h1 Animations
+            p: img(src="images/spritesheet.png").figure
+            ul
+                li The original<sup>TM</sup> CSS sprites!
+                li Sprites pick the correct frame depending on time
 
-      section
-        p Use <code>Phaser.Sprite</code>
-        pre
-          code.language-javascript.
-            var ship = new Phaser.Sprite(this.game, 10, 20, 'hero');
-            this.game.add.existing(ship);
-        p or use <code>game</code>'s factory
-        pre
-          code.language-javascript.
-            var ship = this.game.add.sprite(10, 20, 'hero');
-            ship.anchor.setTo(0.5, 0.5);
-            ship.angle = 45;
-            ship.alpha = 0.5;
+        section
+            pre: code.language-javascript.
+                function preload() {
+                    this.game.load.spritesheet(
+                        'hero', 'character.png', 122, 256);
+                };
 
-      section
-        h2 Animations
-        img(src="images/spritesheet.png").figure
-        ul
-          li The original<sup>TM</sup> CSS sprites!
-          li Sprites pick the correct frame depending on time
+                function create() {
+                    var hero = this.game.add.sprite(320, 240, 'hero');
+                    hero.animations.add('walk');
+                    hero.animations.play('walk', 5, true);
+                }
 
-      section
-        pre
-          code.language-javascript.
-            function preload() {
-              this.game.load.spritesheet('hero',
-                'character.png', 122, 256);
-            };
+        section
+            h1 Move sprites (old-school)
+            ul
+                li We need to update the position in each frame
+                li Newton's equations FTW
+                li We need the <strong>delta time</strong>
 
-            function create() {
-              var hero = this.game.add.sprite(320, 240, 'hero');
-              hero.animations.add('walk');
-              hero.animations.play('walk', 5, true);
-            }
+        section
+            pre: code.language-javascript.
+                var SHIP_SPEED = 100; // pixels / second
 
-      section
-        h2 Move sprites (old-school)
-        ul
-          li We need to update the position in each frame
-          li Newton's equations FTW
-          li We need the <strong>delta time</strong>
+                function update() {
+                    // time in seconds
+                    var delta = this.game.time.elapsed / 1000.0;
 
-      section
-        pre
-          code.language-javascript.
-            var SHIP_SPEED = 100; // pixels / second
+                    // position = speed * time
+                    ship.x += SHIP_SPEED * delta;
+                }
 
-            function update() {
-              // time in seconds
-              var delta = this.game.time.elapsed / 1000.0;
+        section
+            h1 The game tree
+            p: img(src="images/game_tree.svg").figure
 
-              // position = speed * time
-              ship.x += SHIP_SPEED * delta;
-            }
+        section
+            h1 The game tree
+            ul
+                li Tree structure to store game entities
+                li Use <em>groups</em> to hold related entities together
+                li Entities can contain children
+                li Automatically calls <code>update</code> and <code>render</code>
 
-      section
-        h2 The game tree
-        img(src="images/game_tree.svg").figure
+        section
+            h1 Create &amp; destroy sprites
+            p.bullet Add and remove them from the tree
+            h2.bullet <strong>PROBLEM</strong>: it's expensive!
 
-      section
-        h2 The game tree
-        ul
-          li Tree structure to store game entities
-          li Use <em>groups</em> to hold related entities together
-          li Entities can contain children
-          li Automatically calls <code>update</code> and <code>render</code>
+        section
+            h1 Recycle sprites
+            p: img(src="images/recycle.svg").figure
+            ul
+                li Don't destroy sprites… mark them as "zombies"
+                li Re-use "zombie" sprites instead of <code>new</code>
+                li Easy to implement with <code>Phaser.Group</code>
 
-      section
-        h2 Create &amp; destroy sprites
-        p.bullet Add and remove them from the tree
-        h3.bullet <strong>PROBLEM</strong>: it's expensive!
+        section
+            h1 Input, audio &amp; text
 
-      section
-        h2 Recycle sprites
-        img(src="images/recycle.svg").figure
-        ul
-          li Don't destroy sprites… mark them as "zombies"
-          li Re-use "zombie" sprites instead of <code>new</code>
-          li Easy to implement with <code>Phaser.Group</code>
+        section
+            h1 Input
+            ul
+                li HTML5 support for keyboard, mouse, touch and <em>gamepad</em> events.
+                li We might need to capture keys to avoid bubbling
 
-      section
-        h1 Input, audio &amp; text
+        section
+            pre: code.language-javascript.
+                function create() {
+                    // capture spacebar key
+                    spacebar = game.input.keyboard.addKey(
+                        Phaser.Keyboard.SPACEBAR);
+                    game.input.keyboard.addKeyCapture(
+                        [Phaser.Keyboard.SPACEBAR]);
 
-      section
-        h2 Input
-        ul
-          li HTML5 support for keyboard, mouse, touch and <em>gamepad</em> events.
-          li We might need to capture keys to avoid bubbling
+                    // register event callback
+                    spacebar.onDown.add(shoot);
+                }
 
-      section
-        pre
-          code.language-javascript.
-            function create() {
-              // capture spacebar key
-              spacebar = game.input.keyboard.addKey(
-                Phaser.Keyboard.SPACEBAR);
-              game.input.keyboard.addKeyCapture(
-                [Phaser.Keyboard.SPACEBAR]);
+        section
+            pre: code.language-javascript.
+                // check key flag
+                function update() {
+                    if (spacebar.isDown) {
+                        shoot();
+                    }
+                }
 
-              // register event callback
-              spacebar.onDown.add(shoot);
-            }
+        section
+            h1 Audio
+            ul
+                li We can load and play sound effects and song tracks
+                li Formats? Same as <code>&lt;audio&gt;</code>
+                li Similar to handling images
+                li Can play track slices, control panning, etc.
 
-      section
-        pre
-          code.language-javascript.
-            // check key flag
-            function update() {
-              if (spacebar.isDown) {
-                shoot();
-              }
-            }
+        section
+            pre: code.language-javascript.
+                // within preload
+                game.load.audio('shoot', 'laser.wav');
 
-      section
-        h2 Audio
-        ul
-          li We can load and play sound effects and song tracks
-          li Formats? Same as <code>&lt;audio&gt;</code>
-          li Similar to handling images
-          li Can play track slices, control panning, etc.
+                // within create
+                sfxShoot = game.add.audio('shoot');
 
-      section
-        pre
-          code.language-javascript.
-            // within preload
-            game.load.audio('shoot', 'laser.wav');
+                // anywhere
+                sfxShoot.play();
 
-            // within create
-            sfxShoot = game.add.audio('shoot');
+        section
+            h1 Text
+            ul
+                li They are a game entity
+                li Same API as <code>Pixi</code>
+                li Use CSS fonts or bitmap fonts
 
-            // anywhere
-            sfxShoot.play();
+        section
+            pre: code.language-javascript.
+                title = game.add.text(0, 0, 'Score', {
+                    font: '20px monospace',
+                    fill: '#f00'
+                });
 
-      section
-        h2 Text
-        ul
-          li They are a game entity
-          li Same API as <code>Pixi</code>
-          li Use CSS fonts or bitmap fonts
+                title.setText('Score: ' + score);
 
-      section
-        pre
-          code.language-javascript.
-            title = game.add.text(0, 0, 'Score', {
-              font: '20px monospace',
-              fill: '#f00'
-            });
+        section
+            h1 Physics and collisions
 
-            title.setText('Score: ' + score);
+        section
+            h1 Collisions with b-boxes
+            p: img(src="images/bboxes.svg").figure
+            ul
+                li Very fast, not accurate
+                li Phaser has built-in functions to check for rect and circle overlaps
 
-      section
-        h1 Physics and collisions
+        section
+            h1 Physics engines
+            ul
+                li Mapping between game entities and a physical world
+                li Mass, speed, acceleration, bouncing, etc. implemented by smart people. And free!
+                li Phaser's built-in engines: <code>Arcade</code> and <code>P2</code>
 
-      section
-        h2 Collisions with b-boxes
-        img(src="images/bboxes.svg").figure
-        ul
-          li Very fast, not accurate
-          li Phaser has built-in functions to check for rect and circle overlaps
+        section
+            h1 Physics engines
+            p: img(src="images/physics.svg").figure
+            ul
+                li Easy, intuitive API…
+                li …but hard to fine-tune!
 
-      section
-        h2 Physics engines
-        ul
-          li Mapping between game entities and a physical world
-          li Mass, speed, acceleration, bouncing, etc. implemented by smart people. And free!
-          li Phaser's built-in engines: <code>Arcade</code> and <code>P2</code>
+        section
+            h1 The rest
 
-      section
-        h2 Physics engines
-        img(src="images/physics.svg").figure
-        ul
-          li Easy, intuitive API…
-          li …but hard to fine-tune!
+        section
+            h1.bullet The golden rule about game dev
+            h2.bullet If you can fake it, then fake it.
 
-      section
-        h1 The rest
+        section
+            h1 You should also look into
+            ul
+                li Game states
+                li Tiled maps
+                li Finite state machines
+                li Scripting
 
-      section
-        h2.bullet The golden rule about game dev
-        h3.bullet If you can fake it, then fake it.
+        section
+            h1 Examples for this talk
+            p: a(href="http://belen-albeza.github.io/talk-js-gamedev/examples/") Snippets and a game!
 
-      section
-        h2 You should also look into
-        ul
-          li Game states
-          li Tiled maps
-          li Finite state machines
-          li Scripting
+        section
+            h1 Links
+            ul.all
+                li <a href="http://developer.mozilla.org/Games">Games at MDN</a>
+                li <a href="http://www.html5gamedevs.com/forum/14-phaser/">Phaser's forum</a>
+                li <a href="http://www.ludumdare.com">Ludum Dare</a> (48h game jam)
+                li <a href="http://gamedevelopment.tutsplus.com/articles/1gam-how-to-succeed-at-making-one-game-a-month--gamedev-3695">One game a month</a> (article)
+                li <a href="http://www.gamasutra.com/">Gamasutra</a>
 
-      section
-        h2 Examples for this talk
-        p <a href="http://belen-albeza.github.io/talk-js-gamedev/examples/">Snippets and a game!</a>
+        section
+            h1 Thanks!
+            h2 Questions?
 
-      section
-        h2 Links
-        ul.all
-          li <a href="http://developer.mozilla.org/Games">Games at MDN</a>
-          li <a href="http://www.html5gamedevs.com/forum/14-phaser/">Phaser's forum</a>
-          li <a href="http://www.ludumdare.com">Ludum Dare</a> (48h game jam)
-          li <a href="http://gamedevelopment.tutsplus.com/articles/1gam-how-to-succeed-at-making-one-game-a-month--gamedev-3695">One game a month</a> (article)
-          li <a href="http://www.gamasutra.com/">Gamasutra</a>
-
-      section
-        h1 Thanks!
-        h3 Questions?
-
-
-    script(src='build/build.js')
+    script(src='bundle.js')

@@ -1,0 +1,167 @@
+//
+// variables
+//
+
+@screenWidth: 1280px;
+@screenHeight: 720px;
+
+@textColor: #333;
+@accentColor: #FF4E00;
+@bgColor: #EAEAE7;
+
+//
+// fonts and mixins
+//
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Fira Sans'), local('FiraSans-Regular'), url(fonts/FiraSans-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Fira Sans Bold'), local('FiraSans-Bold'), url(fonts/FiraSans-Bold.woff2) format('woff2');
+}
+
+
+.fullspace {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+//
+// global rules
+//
+
+body {
+    background: @bgColor;
+    color: @textColor;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+
+p, li {
+    margin: 0.5em 0;
+    line-height: 1.25em;
+}
+
+a {
+    text-decoration: none;
+    color: @textColor;
+    box-shadow: inset 0 -5px @accentColor;
+    &:hover {
+        background: @accentColor;
+    }
+}
+
+h1, h2 {
+    text-shadow: 0 2px 0 rgba(255, 255, 255, 1);
+    color: #333;
+}
+
+section > h1 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+//
+// bespoke styles
+//
+
+.bespoke-parent {
+    &:extend(.fullspace);
+    overflow: hidden;
+}
+
+.bespoke-scale-parent {
+    &:extend(.fullspace);
+    pointer-events: none;
+}
+
+.bespoke-active {
+    pointer-events: auto;
+}
+
+.bespoke-slide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: @screenWidth;
+    height: @screenHeight;
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+
+    padding: 2em;
+    font-size: 3em;
+
+    transition: opacity 0.5s ease;
+}
+
+.bespoke-slide > * {
+    display: block;
+    width: 100%;
+}
+
+.bespoke-active {
+    transition-delay: 0.6s;
+    opacity: 1;
+}
+
+.bespoke-inactive {
+    opacity: 0;
+}
+
+.bespoke-slide ul, .bespoke-slide ol, .bespoke-slide dl {
+    margin-left: 0;
+    padding-left: 1em;
+    width: calc(100% - 1em);
+    text-align: left;
+}
+
+.bespoke-bullet {
+    transition: opacity 0.3s ease;
+    &.mutex { display: none; }
+}
+
+.bespoke-bullet-inactive {
+    opacity: 0;
+}
+
+.bespoke-bullet-current.mutex {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+//
+// custom styles
+//
+
+.title {
+    margin-bottom: 0.8em;
+}
+
+#demo a {
+    display: inline-block;
+    box-shadow: none;
+    background: none;
+}
+
+pre[class*="language-"] {
+    font-size: 0.7em;
+    line-height: 1em;
+    padding: 1em;
+    border-radius: 0.3em;
+}
